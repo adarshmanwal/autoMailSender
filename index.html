@@ -1,0 +1,347 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bulk Mail Sender</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-1: #f6efe5;
+        --bg-2: #dce9f7;
+        --ink: #1b1a1a;
+        --card: #fffefb;
+        --accent: #d8572a;
+        --accent-2: #2660a4;
+        --ok: #1f7a46;
+        --bad: #9f2a2a;
+        --muted: #5a5a5a;
+        --line: #d8d2c9;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "DM Sans", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(38, 96, 164, 0.15),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(216, 87, 42, 0.18),
+            transparent 45%
+          ),
+          linear-gradient(140deg, var(--bg-1), var(--bg-2));
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .layout {
+        max-width: 980px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        animation: fadeIn 450ms ease;
+      }
+
+      .hero,
+      .panel {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 8px 24px rgba(20, 20, 20, 0.08);
+      }
+
+      .hero {
+        padding: 22px;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        font-family: "Archivo Black", sans-serif;
+        line-height: 1.1;
+        letter-spacing: 0.5px;
+      }
+
+      .subtitle {
+        margin: 10px 0 0;
+        color: var(--muted);
+        max-width: 70ch;
+      }
+
+      .panel {
+        padding: 20px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      label {
+        font-weight: 700;
+        font-size: 0.95rem;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      input,
+      textarea {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 11px 12px;
+        font: inherit;
+        background: #fff;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      button {
+        border: 0;
+        border-radius: 999px;
+        padding: 11px 18px;
+        font: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        background: linear-gradient(120deg, var(--accent), #f2884f);
+        color: #fff;
+        transition:
+          transform 180ms ease,
+          box-shadow 180ms ease;
+      }
+
+      button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 14px rgba(216, 87, 42, 0.35);
+      }
+
+      button:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .ghost {
+        background: #f4f6f8;
+        color: #1f2937;
+      }
+
+      .status {
+        border-radius: 12px;
+        padding: 12px 14px;
+        background: #fff;
+        border: 1px solid var(--line);
+        white-space: pre-wrap;
+      }
+
+      .status.ok {
+        border-color: #9ad9b1;
+        color: var(--ok);
+        background: #f4fff7;
+      }
+
+      .status.bad {
+        border-color: #f4a6a6;
+        color: var(--bad);
+        background: #fff6f6;
+      }
+
+      .status.info {
+        border-color: #9ac0f4;
+        color: var(--accent-2);
+        background: #f6faff;
+      }
+
+      .hint {
+        color: var(--muted);
+        margin: 0;
+        font-size: 0.92rem;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (min-width: 800px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .span-2 {
+          grid-column: 1 / -1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="layout">
+      <section class="hero">
+        <h1 class="title">Bulk Mail Sender</h1>
+        <p class="subtitle">
+          Send one message to many recipients with optional attachment and
+          delivery summary.
+        </p>
+      </section>
+
+      <section class="panel">
+        <div class="grid">
+          <div class="span-2">
+            <label for="subject">Subject</label>
+            <input
+              type="text"
+              id="subject"
+              placeholder="April campaign update"
+            />
+          </div>
+
+          <div class="span-2">
+            <label for="message">Message</label>
+            <textarea
+              id="message"
+              placeholder="Write the email body here..."
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="file">Attachment (optional)</label>
+            <input type="file" id="file" />
+            <p class="hint">Maximum size: 10MB</p>
+          </div>
+
+          <div>
+            <label for="emails">Recipient emails (one per line)</label>
+            <textarea id="emails" placeholder="person@example.com"></textarea>
+          </div>
+
+          <div class="span-2 actions">
+            <button id="sendBtn" type="button">Send Emails</button>
+            <button id="clearBtn" class="ghost" type="button">Clear</button>
+          </div>
+
+          <div class="span-2">
+            <div id="status" class="status info">Ready to send.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const sendBtn = document.getElementById("sendBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const statusEl = document.getElementById("status");
+
+      function setStatus(message, tone) {
+        statusEl.className = `status ${tone}`;
+        statusEl.textContent = message;
+      }
+
+      function collectEmails(raw) {
+        return raw
+          .split("\n")
+          .map((email) => email.trim())
+          .filter(Boolean);
+      }
+
+      async function sendMail() {
+        const subject = document.getElementById("subject").value.trim();
+        const message = document.getElementById("message").value.trim();
+        const emails = collectEmails(document.getElementById("emails").value);
+        const file = document.getElementById("file").files[0];
+
+        if (!subject || !message || emails.length === 0) {
+          setStatus(
+            "Please enter a subject, message, and at least one recipient email.",
+            "bad",
+          );
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append("subject", subject);
+        formData.append("message", message);
+        formData.append("emails", JSON.stringify(emails));
+
+        if (file) {
+          formData.append("file", file);
+        }
+
+        sendBtn.disabled = true;
+        setStatus("Sending emails...", "info");
+
+        try {
+          const response = await fetch("/send-mails", {
+            method: "POST",
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (!response.ok && response.status !== 207) {
+            throw new Error(result.error || "Failed to send emails.");
+          }
+
+          const summary = `Total: ${result.totalRecipients}\nSent: ${result.sentCount}\nFailed: ${result.failedCount}`;
+
+          if (result.failedCount > 0) {
+            const reasons = result.failures
+              .map((item) => `${item.email}: ${item.reason}`)
+              .join("\n");
+            setStatus(`${summary}\n\nFailures:\n${reasons}`, "bad");
+          } else {
+            setStatus(`${summary}\n\nAll emails were sent successfully.`, "ok");
+          }
+        } catch (error) {
+          setStatus(error.message || "Something went wrong.", "bad");
+        } finally {
+          sendBtn.disabled = false;
+        }
+      }
+
+      function clearForm() {
+        document.getElementById("subject").value = "";
+        document.getElementById("message").value = "";
+        document.getElementById("emails").value = "";
+        document.getElementById("file").value = "";
+        setStatus("Ready to send.", "info");
+      }
+
+      sendBtn.addEventListener("click", sendMail);
+      clearBtn.addEventListener("click", clearForm);
+    </script>
+  </body>
+</html>

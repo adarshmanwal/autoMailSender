@@ -1,0 +1,25 @@
+{
+  "name": "automailsender",
+  "version": "1.0.0",
+  "description": "Bulk email sender with attachment support and delivery summary",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"No automated tests configured yet\""
+  },
+  "keywords": [
+    "bulk-email",
+    "nodemailer",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "multer": "^2.1.1",
+    "nodemailer": "^8.0.4"
+  }
+}
